@@ -90,12 +90,12 @@ const viewAllEmployees = () => {
 
 }
 
-// const viewAllEmployeesByDepartment = () => {
-//   connection.query("SELECT employee.id,employee.first_name,employee.last_name,department.name AS Department FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id ", function (err, res) {
-//       if (err) throw err;
-//       console.table(res);
-//       startApp();
-//   });
+const viewAllEmployeesByDepartment = () => {
+  connection.query("SELECT employee.id,employee.first_name,employee.last_name,department.name AS Department FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id ", function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      startApp();
+  });
 
-// }
+}
 
