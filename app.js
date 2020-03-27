@@ -33,7 +33,7 @@ function startApp() {
     name: "action",
     type: "list",
     message: "What would you like to do?",
-    options: [
+    choices: [
       "View All Employees",
       "View All Employees by Department",
       "Add Employee",
@@ -47,7 +47,7 @@ function startApp() {
   .then(function(answer){
     switch(answer.action) {
       case "View All Employees":
-        viewAllEmployees()
+      viewAllEmployees()
       break
 
       case "View All Employees by Department":
@@ -80,3 +80,22 @@ function startApp() {
     }
   })
 }
+
+const viewAllEmployees = () => {
+  connection.query("SELECT employee.id,employee.first_name,employee.last_name,role.title,role.salary,department.name AS Department FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id ", function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      startApp();
+  });
+
+}
+
+// const viewAllEmployeesByDepartment = () => {
+//   connection.query("SELECT employee.id,employee.first_name,employee.last_name,department.name AS Department FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id ", function (err, res) {
+//       if (err) throw err;
+//       console.table(res);
+//       startApp();
+//   });
+
+// }
+
