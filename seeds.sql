@@ -13,7 +13,7 @@ VALUES (1, "Sales Manager", 70000),
 (2, "Software Engineer", 60000),
 (3, "Operations Analyst", 40000),
 (4, "Lawyer", 200000),
-(5, "HR Manager", 50000),
+(1, "HR Manager", 50000),
 (6, "Marketing Associate", 55000),
 (7, "Accountant", 65000),
 (8, "Customer Service Rep", 35000);
