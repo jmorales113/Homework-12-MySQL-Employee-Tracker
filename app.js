@@ -36,13 +36,10 @@ function startApp() {
     choices: [
       "View All Employees",
       "View All Employees by Department",
-      "View All Employees by Roles",
+      "Update Employee Role",
       "Add Employee",
       "Add Department",
-      "Update Employee Role",
       "Delete Employee",
-      "Delete Department",
-      "Delete Employee Role"
     ]
   })
   .then(function(answer){
@@ -55,9 +52,9 @@ function startApp() {
       viewAllEmployeesByDepartment()
       break
 
-      // case "View All Employees by Roles":
-      // viewAllEmployeesByRoles()
-      // break
+      case "Update Employee Role":
+      updateEmployeeRole()
+      break
 
       case "Add Employee":
       addEmployee()
@@ -67,20 +64,8 @@ function startApp() {
       addDepartment()
       break
 
-      case "Update Employee Role":
-      updateEmployeeRole()
-      break
-
       case "Delete Employee":
       deleteEmployee()
-      break
-
-      case "Delete Department":
-      deleteDepartment()
-      break
-
-      case "Delete Employee Role":
-      deleteEmployeeRole()
       break
     }
   })
@@ -103,15 +88,6 @@ const viewAllEmployeesByDepartment = () => {
   });
 
 }
-
-// const viewAllEmployeesByRoles = () => {
-//   connection.query("SELECT employee.id,employee.first_name,employee.last_name, role.title FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.role ON role.id = employee.role_id ", function (err, res) {
-//       if (err) throw err;
-//       console.table(res);
-//       startApp();
-//   });
-
-// }
 
 const addEmployee =() => {
   inquirer
@@ -177,3 +153,30 @@ const addDepartment =() => {
 
   })
 }
+
+const deleteEmployee =() => {
+  inquirer
+  .prompt([
+    {
+    name: "employee",
+    type: "input",
+    message: "Which employee would you like to delete? (Please enter employee's ID)"
+    
+    } 
+  ])
+  .then(function(answer){
+    connection.query(
+      "DELETE FROM employee WHERE ?",
+      {
+        id: answer.employee,
+      },
+      function (err) {
+        if (err) throw err
+        console.log("You have successfully deleted an employee!")
+        startApp();
+      }
+    )
+
+  })
+}
+
