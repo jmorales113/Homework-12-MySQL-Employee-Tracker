@@ -2,10 +2,6 @@ let mysql = require("mysql");
 let inquirer = require("inquirer")
 let cTable = require("console.table")
 
-// View all employees, view all employees by Department, view all employees by manager
-// Add departments, add roles, add employees
-// Update employee roles
-
 let connection = mysql.createConnection({
   host: "localhost",
 
@@ -24,7 +20,6 @@ connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
   startApp()
-//   connection.end();
 });
 
 function startApp() {
@@ -36,10 +31,12 @@ function startApp() {
     choices: [
       "View All Employees",
       "View All Employees by Department",
+      "View All Employees by Roles",
       "Update Employee Role",
       "Add Employee",
       "Add Department",
       "Delete Employee",
+      "Exit"
     ]
   })
   .then(function(answer){
@@ -50,6 +47,10 @@ function startApp() {
 
       case "View All Employees by Department":
       viewAllEmployeesByDepartment()
+      break
+
+      case "View All Employees by Roles":
+      viewAllEmployeesByRoles()
       break
 
       case "Update Employee Role":
@@ -67,6 +68,10 @@ function startApp() {
       case "Delete Employee":
       deleteEmployee()
       break
+
+      case "Exit":
+      connection.end()
+
     }
   })
 }
@@ -82,6 +87,15 @@ const viewAllEmployees = () => {
 
 const viewAllEmployeesByDepartment = () => {
   connection.query("SELECT employee.id,employee.first_name,employee.last_name,department.name AS Department FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id ", function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      startApp();
+  });
+
+}
+
+const viewAllEmployeesByRoles = () => {
+  connection.query("SELECT * FROM role", function (err, res) {
       if (err) throw err;
       console.table(res);
       startApp();
