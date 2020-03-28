@@ -36,6 +36,7 @@ function startApp() {
     choices: [
       "View All Employees",
       "View All Employees by Department",
+      "View All Employees by Roles",
       "Add Employee",
       "Add Department",
       "Update Employee Role",
@@ -53,6 +54,10 @@ function startApp() {
       case "View All Employees by Department":
       viewAllEmployeesByDepartment()
       break
+
+      // case "View All Employees by Roles":
+      // viewAllEmployeesByRoles()
+      // break
 
       case "Add Employee":
       addEmployee()
@@ -99,3 +104,49 @@ const viewAllEmployeesByDepartment = () => {
 
 }
 
+// const viewAllEmployeesByRoles = () => {
+//   connection.query("SELECT employee.id,employee.first_name,employee.last_name, role.title FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.role ON role.id = employee.role_id ", function (err, res) {
+//       if (err) throw err;
+//       console.table(res);
+//       startApp();
+//   });
+
+// }
+
+const addEmployee =() => {
+  inquirer
+  .prompt([
+    {
+    name: "first_name",
+    type: "input",
+    message: "What is the employee's first name?"
+    
+    },
+    {
+    name: "last_name",
+    type: "input",
+    message: "What is the employee's last name?"
+    },
+    {
+    name: "role",
+    type: "input",
+    message: "What is the employee's role? (Please enter a role ID)?"
+    }
+
+  ])
+  .then(function(answer){
+    connection.query(
+      "INSERT INTO Employee SET ?",
+      {
+        first_name: answer.first_name,
+        last_name : answer.last_name,
+        role_id: answer.role
+      },
+      function (err) {
+        if (err) throw err
+        console.log("You have successfully added an employee!")
+      }
+    )
+
+  })
+}
