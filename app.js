@@ -89,6 +89,42 @@ const viewAllEmployeesByDepartment = () => {
 
 }
 
+const updateEmployeeRole = () => {
+  inquirer
+  .prompt([
+    {
+    name: "employee",
+    type: "input",
+    message: "Which employee's role would you like to update? (Please enter the employee's ID)"
+    },
+
+    {
+    name: "newRole",
+    type: "input",
+    message: "What new role would you like to assign? (Please enter a role ID)"
+    },
+
+    ])
+  .then(function (answer) {
+    connection.query(
+      "UPDATE employee SET ? where ?",
+        [
+        {
+        role_id: answer.newRole
+        },
+        {
+        id: answer.employee
+        }
+        ],
+        function (err) {
+        if (err) throw err;
+        console.log("The employee's role has been updated successfully!");
+        startApp();
+     }
+   );
+  });
+}
+
 const addEmployee =() => {
   inquirer
   .prompt([
