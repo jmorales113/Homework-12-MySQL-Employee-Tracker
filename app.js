@@ -77,7 +77,7 @@ function startApp() {
 }
 
 const viewAllEmployees = () => {
-  connection.query("SELECT employee.id,employee.first_name,employee.last_name,role.title,role.salary,department.name AS Department FROM employees_db.employee LEFT JOIN employees_db.role ON employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id ", function (err, res) {
+  connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id AS manager FROM employees_db.employee LEFT JOIN employees_db.role On employee.role_id = role.id LEFT JOIN employees_db.department ON role.department_id = department.id", function (err, res) {
       if (err) throw err;
       console.table(res);
       startApp();
