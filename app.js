@@ -145,6 +145,33 @@ const addEmployee =() => {
       function (err) {
         if (err) throw err
         console.log("You have successfully added an employee!")
+        startApp();
+      }
+    )
+
+  })
+}
+
+const addDepartment =() => {
+  inquirer
+  .prompt([
+    {
+    name: "department",
+    type: "input",
+    message: "What department would you like to add?"
+    
+    } 
+  ])
+  .then(function(answer){
+    connection.query(
+      "INSERT INTO Department SET ?",
+      {
+        name: answer.department,
+      },
+      function (err) {
+        if (err) throw err
+        console.log("You have successfully added a department!")
+        startApp();
       }
     )
 
