@@ -8,15 +8,15 @@ VALUES ("Sales"),
 ("Accounting"),
 ("Customer Service");
 
-INSERT INTO role (department_id, title, salary)
-VALUES (1, "Sales Manager", 70000),
-(2, "Software Engineer", 60000),
-(3, "Operations Analyst", 40000),
-(4, "Lawyer", 200000),
-(1, "HR Manager", 50000),
-(6, "Marketing Associate", 55000),
-(7, "Accountant", 65000),
-(8, "Customer Service Rep", 35000);
+INSERT INTO role (title, salary, department_id)
+VALUES ("Sales Manager", 70000.0, 1 ),
+("Software Manager", 60000.0, 2),
+('Operations Analyst', 40000.0, 3),
+("Lawyer", 200000.0, 4),
+("HR Manager", 50000.0, 1),
+("Marketing Associate", 55000.0, 6),
+("Accountant", 65000.0, 7),
+("Customer Server Rep", 35000.0, 8);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Brian", "Meza", 1, NULL),
