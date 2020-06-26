@@ -1,4 +1,4 @@
-# Homework-12-MySQL-Employee-Tracker
+# MySQL-Employee-Tracker
 
 Task: To architect and build a solution for managing a company's employees using node, inquiere, and MySQL.
 
